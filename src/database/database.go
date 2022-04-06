@@ -10,7 +10,7 @@ import (
 var db *gorm.DB
 
 func StartDB() {
-	str := "host=localhost port=5432 user=postgres dbname=mini_projeto sslmode=disable password=123456"
+	str := "host=localhost port=5432 user=postgres dbname=mini_projeto2 sslmode=disable password=123456"
 	database, err := gorm.Open(postgres.Open(str), &gorm.Config{})
 	if err != nil {
 		log.Fatal("error:", err)
@@ -18,7 +18,7 @@ func StartDB() {
 
 	db = database
 
-	config, _ := db.DB()
+	config, _ := db.DB() //connection pool
 
 	config.SetMaxIdleConns(10)
 	config.SetMaxOpenConns(100)

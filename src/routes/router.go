@@ -10,7 +10,7 @@ func ConfigRoutes(router *gin.Engine) *gin.Engine {
 	{
 		main.GET("/", controllers.ListCategories)
 		main.GET("/:id", controllers.FindCategory)
-		main.POST("/:id", controllers.CreateCategory)
+		main.POST("/", controllers.CreateCategory)
 	}
 	return router
 }
