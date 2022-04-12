@@ -11,8 +11,7 @@ func ListCategories(c *gin.Context) {
 
 	db := database.GetDatabase()
 	var category []models.Category
-	//err := db.Find(&category).Error
-	err := db.Preload("AdParms").Find(&category).Error
+	err := db.Preload("AdParams").Find(&category).Error
 
 	if err != nil {
 		c.JSON(400, gin.H{
@@ -33,7 +32,7 @@ func FindCategory(c *gin.Context) {
 
 	db := database.GetDatabase()
 	var category models.Category
-	err := db.Find(&category, id).Error
+	err := db.Preload("AdParams").Find(&category, id).Error
 
 	if err != nil {
 		c.JSON(400, gin.H{
@@ -86,11 +85,11 @@ func CreateCategory(c *gin.Context) {
 	c.JSON(201, category)
 }
 
-func ListParms(c *gin.Context) {
+func ListParams(c *gin.Context) {
 	db := database.GetDatabase()
 
-	var parms []models.AdParms
-	err := db.Find(&parms).Error
+	var params []models.AdParams
+	err := db.Find(&params).Error
 
 	if err != nil {
 		c.JSON(400, gin.H{
@@ -102,7 +101,7 @@ func ListParms(c *gin.Context) {
 	c.JSON(
 		200,
 		gin.H{
-			"parametros:": parms,
+			"parametros:": params,
 		},
 	)
 }

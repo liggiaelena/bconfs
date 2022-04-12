@@ -4,10 +4,10 @@ type Category struct {
 	ID          uint   `json:"id" gorm:"primaryKey"`
 	Name        string `json:"name" binding:"required"`
 	Description string `json:"description" binding:"required,min=8"`
-	AdParms     []AdParms
+	AdParams    []AdParams
 }
 
-type AdParms struct {
+type AdParams struct {
 	ID         uint   `json:"id" gorm:"primaryKey"`
 	Name       string `json:"name" binding:"required"`
 	Type       string `json:"type" binding:"required"`
