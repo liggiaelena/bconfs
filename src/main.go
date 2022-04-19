@@ -1,8 +1,12 @@
 package main
 
-import "awesomeProject/src/server"
+import (
+	"awesomeProject/src/database"
+	"awesomeProject/src/server"
+)
 
 func main() {
+	database.StartDB()
 	server := server.NewServer()
 
 	server.Run()
