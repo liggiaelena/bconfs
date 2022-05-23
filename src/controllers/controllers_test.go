@@ -7,10 +7,8 @@ import (
 	"awesomeProject/src/routes"
 	"awesomeProject/src/server"
 	"encoding/json"
-	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/stretchr/testify/assert"
-	"io"
 	"net/http"
 	"net/http/httptest"
 	"testing"
@@ -34,25 +32,15 @@ func TestListCategories(t *testing.T) {
 	repo.On("GetAllCategories").Return(mockCategories, nil)
 
 	server := server.NewServer()
-	routes := routes.ConfigRoutes(server.Server)
+	routes := routes.ConfigRoutes(server.Server, repo)
 
-	req := httptest.NewRequest(http.MethodGet, "/category", nil)
+	req, _ := http.NewRequest(http.MethodGet, "/category", nil)
 	req.Header.Set("Content-Type", "application/json")
 	w := httptest.NewRecorder()
-
-	res := w.Result()
-	defer res.Body.Close()
 	routes.ServeHTTP(w, req)
+	marshal, _ := json.Marshal(mockCategories)
 
-	fmt.Println(w)
-	greeting, _ := io.ReadAll(res.Body)
-	marshal, err := json.Marshal(mockCategories)
-	if err != nil {
-		return
-	}
-	fmt.Println(greeting)
+	repo.AssertCalled(t, "GetAllCategories")
 	assert.Equal(t, http.StatusOK, w.Code)
-	assert.Equal(t, string(marshal), string(greeting))
-
-	//assert.Equal(t, categories, mockCategories)
+	assert.Equal(t, string(marshal), w.Body.String())
 }

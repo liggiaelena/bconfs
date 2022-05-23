@@ -10,22 +10,31 @@ type RepositoryMock struct {
 }
 
 func (m *RepositoryMock) GetAllCategories() ([]models.Category, error) {
-	return nil, nil
-
+	args := m.Called()
+	result := args.Get(0)
+	return result.([]models.Category), args.Error(1)
 }
+
 func (m *RepositoryMock) GetCategoryById(id int) ([]models.Category, error) {
-	return nil, nil
-
+	args := m.Called()
+	result := args.Get(0)
+	return result.([]models.Category), args.Error(1)
 }
+
 func (m *RepositoryMock) GetCategoryByName(name string) bool {
-	return false
-
+	args := m.Called()
+	result := args.Get(0)
+	return result.(bool)
 }
+
 func (m *RepositoryMock) PostCategory(category models.Category) ([]models.Category, error) {
-	return nil, nil
-
+	args := m.Called()
+	result := args.Get(0)
+	return result.([]models.Category), args.Error(1)
 }
-func (m *RepositoryMock) ListParams() ([]models.AdParams, error) {
-	return nil, nil
 
+func (m *RepositoryMock) ListParams() ([]models.AdParams, error) {
+	args := m.Called()
+	result := args.Get(0)
+	return result.([]models.AdParams), args.Error(1)
 }

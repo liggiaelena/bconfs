@@ -8,17 +8,12 @@ import (
 
 func ConfigRoutes(router *gin.Engine, repo repository.Repository) *gin.Engine {
 	handler := controllers.NewHandler(repo)
-	main := router.Group("/category")
-	{
-		main.GET("/", handler.ListCategories)
-		main.GET("/:id", handler.FindCategory)
-		main.POST("/", handler.CreateCategory)
-		main.GET("/parms", handler.ListParams)
-	}
-	parms := router.Group("/params")
-	{
-		parms.GET("/", handler.ListParams)
-	}
+
+	router.GET("/category", handler.ListCategories)
+	router.GET("/category/:id", handler.FindCategory)
+	router.POST("/category", handler.CreateCategory)
+
+	router.GET("/params", handler.ListParams)
 
 	return router
 }

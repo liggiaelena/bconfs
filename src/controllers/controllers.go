@@ -34,7 +34,6 @@ func NewHandler(repo repository.Repository) IHandler {
 
 func (h *Handler) ListCategories(c *gin.Context) {
 	category, err := h.Repo.GetAllCategories()
-
 	if err != nil {
 		c.JSON(400, gin.H{
 			"error": err.Error(),
