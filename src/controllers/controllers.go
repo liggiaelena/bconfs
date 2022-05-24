@@ -35,7 +35,7 @@ func NewHandler(repo repository.Repository) IHandler {
 func (h *Handler) ListCategories(c *gin.Context) {
 	category, err := h.Repo.GetAllCategories()
 	if err != nil {
-		c.JSON(400, gin.H{
+		c.JSON(500, gin.H{
 			"error": err.Error(),
 		})
 		return
@@ -46,6 +46,7 @@ func (h *Handler) ListCategories(c *gin.Context) {
 
 func (h *Handler) FindCategory(c *gin.Context) {
 	param := c.Param("id")
+
 	id, err := strconv.Atoi(param)
 	if err != nil {
 		c.JSON(400, gin.H{"error": "id must be a number"})
@@ -55,7 +56,7 @@ func (h *Handler) FindCategory(c *gin.Context) {
 	category, err := h.Repo.GetCategoryById(id)
 
 	if err != nil {
-		c.JSON(400, gin.H{
+		c.JSON(500, gin.H{
 			"error": err.Error(),
 		})
 		return
@@ -76,6 +77,7 @@ func (h *Handler) CreateCategory(c *gin.Context) {
 
 	err := c.ShouldBindJSON(&category) //how get the body?
 	fmt.Println(category)
+	fmt.Println(err)
 	if err != nil {
 		c.JSON(400, gin.H{
 			"error": err.Error(),
@@ -107,7 +109,7 @@ func (h *Handler) ListParams(c *gin.Context) {
 	params, err := h.Repo.ListParams()
 
 	if err != nil {
-		c.JSON(400, gin.H{
+		c.JSON(500, gin.H{
 			"error": err.Error(),
 		})
 		return
