@@ -40,7 +40,6 @@ func (h *Handler) ListCategories(c *gin.Context) {
 		})
 		return
 	}
-
 	c.JSON(200, category)
 }
 
@@ -68,7 +67,6 @@ func (h *Handler) FindCategory(c *gin.Context) {
 		})
 		return
 	}
-
 	c.JSON(200, category)
 }
 
@@ -101,7 +99,6 @@ func (h *Handler) CreateCategory(c *gin.Context) {
 		})
 		return
 	}
-
 	c.JSON(201, categories[0])
 }
 
@@ -114,6 +111,5 @@ func (h *Handler) ListParams(c *gin.Context) {
 		})
 		return
 	}
-
 	c.JSON(200, params)
 }
