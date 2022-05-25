@@ -2,21 +2,18 @@ package routes
 
 import (
 	"awesomeProject/src/controllers"
+	"awesomeProject/src/repository"
 	"github.com/gin-gonic/gin"
 )
 
-func ConfigRoutes(router *gin.Engine) *gin.Engine {
-	main := router.Group("/category")
-	{
-		main.GET("/", controllers.ListCategories)
-		main.GET("/:id", controllers.FindCategory)
-		main.POST("/", controllers.CreateCategory)
-		main.GET("/parms", controllers.ListParams)
-	}
-	parms := router.Group("/params")
-	{
-		parms.GET("/", controllers.ListParams)
-	}
+func ConfigRoutes(router *gin.Engine, repo repository.Repository) *gin.Engine {
+	handler := controllers.NewHandler(repo)
+
+	router.GET("/category", handler.ListCategories)
+	router.GET("/category/:id", handler.FindCategory)
+	router.POST("/category", handler.CreateCategory)
+
+	router.GET("/params", handler.ListParams)
 
 	return router
 }
